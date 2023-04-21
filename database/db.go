@@ -1,7 +1,7 @@
 package database
 
 import (
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"io/fs"
@@ -66,7 +66,11 @@ func InitDB(dbPath string) error {
 	c := &gorm.Config{
 		Logger: gormLogger,
 	}
-	db, err = gorm.Open(sqlite.Open(dbPath), c)
+
+	dsn := "host=82.115.16.31 user=postgres password=1 dbname=xui port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	db, err := gorm.Open(postgres.Open(dsn), c)
+
+	// db, err = gorm.Open(sqlite.Open(dbPath), c)
 	if err != nil {
 		return err
 	}
